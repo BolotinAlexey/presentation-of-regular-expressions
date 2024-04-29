@@ -14,12 +14,276 @@
 		<link rel="stylesheet" href="plugin/highlight/monokai.css">
 	</head>
 	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h1>Regular Expressions</h1>
+                <p>Welcome to the presentation on <span class="highlight">Regular Expressions</span>!</p>
+            </section>
+            <section>
+                <h2>What are Regular Expressions?</h2>
+                <p>Regular expressions (Regex) are a way of describing patterns in a string of data, which allows you to search for data strings, like email addresses or passwords, that match that pattern</p>
+            </section>
+            <section data-auto-animate>
+            <h2 data-id="code-title">Creating regular expressions in js</h2>
+              <p>To create regular expression, use one of the ways:</p>
+                  <p data-id="code-title">With the help of literals / ... / - designations of regular expressions.Example:</p>
+                        <code class="hljs javascript" data-trim data-line-numbers>
+						    let reg = /Hello /;
+                        </code>
+            <p>Through a special REGEXP:</p>
+            <code class="javascript hljs" data-trim data-line-numbers>
+            let reg = New RegExp('Hello');
+			</code>
+            </section>
+			<section>
+                <h2>Basic Syntax</h2>
+                <p>A regular expression is typically composed of:</p>
+                <ul>
+                    <li>Literal characters: Represent exact matches</li>
+                    <li>Metacharacters: Special characters with predefined meanings</li>
+                    <li>Quantifiers: Specify the number of occurrences</li>
+                    <li>Anchors: Define positions within the text</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Literal Characters</h2>
+                <p>Literal characters in regex represent themselves and match exactly the same character in the input text.</p>
+                <p>However, special characters like <code>+</code>, <code>*</code>, and <code>$</code> have special meanings and need to be escaped with a backslash to match literally.</p>
+            <p>For example, the regex <code>/hello/</code> matches the string "hello" in the input text.</p>
+            </section>
+            <section>
+                <section>
+                <h2>Metacharacters</h2>
+                <p class="r-fit-text">Metacharacters are special characters in regex that have predefined meanings and functions.Some common metacharacters include:</p>
+					<ul class="r-fit-text">
+  <li>. - Find a single character, except newline or line terminator
+  </li>
+  <li>\w - Find a word character
+  </li>
+  <li>\W - Find a non-word character
+  </li>
+  <li>\d - Find a digit
+  </li>
+  <li>\D - Find a non-digit character
+  </li>
+  <li>\s - Find a whitespace character
+  </li>
+  <li>\S - Find a non-whitespace character
+  </li>
+  <li>\b - Find a match at the beginning/end of a word, beginning like this: \bHI,
+    end like this: HI\b
+  </li>
+  <li>\B - Find a match, but not at the beginning/end of a word
+  </li>
+  <li>\0 - Find a NULL character
+  </li>
+  <li>\n - Find a new line character
+  </li>
+  <li>\f - Find a form feed character
+  </li>
+  <li>\r - Find a carriage return character
+  </li>
+  <li>\t - Find a tab character
+  </li>
+  <li>\v - Find a vertical tab character
+  </li>
+  <li>\xxx - Find the character specified by an octal number xxx
+  </li>
+  <li>\xdd - Find the character specified by a hexadecimal number dd
+  </li>
+  <li>\udddd - Find the Unicode character specified by a hexadecimal number dddd
+  </li>
+	                </ul>
+        </section>
+        <section data-auto-animate>
+					<h2 data-id="code-title">Examples</h2>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+		let reg = /m.d/g;
+    let str = "He's mad!"; //matches
+
+    let reg = /o+/g;
+    let str = "Codeee!"; //matches
+
+    let reg = /50*/g;
+    let str = "5, 500 or 5000"; //matches
+
+    let reg = /code(?= Alex)/g;
+    let str = "code with Alex"; //matches
+					</code></pre>
+		</section>
+            </section>
+            <section>
+            <section>
+                <h2>Quantifiers</h2>
+                <p>Quantifiers specify the number of occurrences of a character or group in regex.</p>
+                <ul>
+                    <li><code>*</code>: Matches zero or more occurrences</li>
+                    <li><code>+</code>: Matches one or more occurrences</li>
+                    <li><code>?</code>: Matches zero or one occurrence</li>
+                    <li><code>{n}</code>: Matches exactly <em>n</em> occurrences</li>
+                    <li><code>{n,}</code>: Matches at least <em>n</em> occurrences</li>
+                    <li><code>{n,m}</code>: Matches between <em>n</em> and <em>m</em> occurrences</li>
+                </ul>
+            </section>
+            <section data-auto-animate>
+					<h2 data-id="code-title">Examples</h2>
+                    <p>Exact Count {n}</p>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+let str = 'Year: 2022';
+let re = /\d{4}/; // Matches a four-digit number basically
+                // concise & better way to write \d\d\d\d
+console.log(str.match(re)); // Output: ["2022"]
+					</code></pre>
+                    <p>The Range {n,m}</p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+let str = "The meeting is scheduled for 10:30 AM and ends at 2 PM";
+let re = /\d{2,4}/g; // Matches numbers with 2 to 4 digits
+console.log(str.match(re)); // Output: [ '10', '30' ]
+					</code></pre>
+		</section>
+            <section data-auto-animate>
+					<h2 data-id="code-title">Examples</h2>
+                    <p>{n,}</p>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+    let str = 'The price of the item is $2500';
+    let re = /\d{2,}/g; // Matches numbers with 2 or more digits
+    console.log(str.match(re)); // Output: ["2500"]
+					</code></pre>
+                    <p>Shorthands: +, ?, *</p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+    let phone = "+48-(886)-777-010";
+    let result = phone.match(/\d+/g); // Matches one or more digits
+    console.log(result); // Output: ["48", "886", "777", "010"]
+					</code></pre>
+		</section>
+            <section data-auto-animate>
+					<h2 data-id="code-title">Examples</h2>
+                    <p>Zero or One (?)</p>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+let str = 'The sky is blue in color, the ocean is blue in colour';
+console.log(str.match(/colou?r/g)); // Output: ["color", "colour"]
+					</code></pre>
+                    <p>Zero or More (*)</p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+let str = 'There are computer science & computational engineering';
+let re = /comput\w*/g; // Matches "computer" and "computational"
+console.log(str.match(re));// Output: ["computer", "computational"]
+					</code></pre>
+		</section>
+            <section data-auto-animate>
+					<h2 data-id="code-title">Examples</h2>
+                    <p>Greedy Quantifiers</p>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+    let regexp = /".+"/g;
+    let str = 'The "Boy" and his "Friends" were here';
+    console.log( str.match(regexp) ); // "Boy" and his "Friends"
+					</code></pre>
+		</section>
+            </section>
+            <section>
+            <section>
+                <h2>Anchors</h2>
+                <p>Anchors define positions within the input text where matches should occur.</p>
+                <ul>
+                    <li><code>^</code>: Matches the start of the input text</li>
+                    <li><code>$</code>: Matches the end of the input text</li>
+                    <li><code>\b</code>: Matches a word boundary</li>
+                    <li><code>\B</code>: Matches a non-word boundary</li>
+                </ul>
+            </section>
+        <section data-auto-animate>
+					<h2 data-id="code-title">Examples</h2>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+    let reg = /presentation$/g;
+    let str = "Welcome to the presentation"; //matches
+
+    let reg = /^javaScript/g;
+    let str = "javaScript supports regular expressions"; //matches
+					</code></pre>
+			</section>
+            </section>
+            <section>
+                <h2>Modifiers</h2>
+                <p>Modifiers are optional flags that control the behavior of the regex pattern.</p>
+                <ul>
+                    <li><code>i</code>: Case-insensitive matching</li>
+                    <li><code>g</code>: Global matching (matches all occurrences)</li>
+                    <li><code>m</code>: Multiline matching</li>
+                    <li><code>s</code>: Allows <code>.</code> to match newline characters</li>
+                    <li><code>u</code>: Enables full Unicode matching</li>
+                </ul>
+            </section>
+            <section>
+              <section>
+                <h2>Regular Expressions Methods</h2>
+                <p>Regular expressions are used with the RegExp methods like test() and exec() and with the string methods match() , replace() , search() , and split() . These methods are explained in detail below with examples.</p>
+              </section>
+            <section data-auto-animate>
+					<h2 data-id="code-title">Examples</h2>
+                    <p>exec()</p>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+    console.log(/c/.exec("Coding is cool"));
+    //['c', index: 10, input: 'Coding is cool', groups: undefined]
+    console.log(/t/.exec("Coding is cool")); //null
+					</code></pre>
+                    <p>test()</p>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+    console.log(/cool/.test("Coding is cool")); //true
+    console.log(/col/.test("Coding is cool")); //false
+					</code></pre>
+                    <p>match()</p>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+    console.log("Coding is cool".match(/Co/));
+    // ['Co', index: 0, input: 'Coding is cool', groups: undefined]
+					</code></pre>
+			</section>
+        <section data-auto-animate>
+                    <p>search()</p>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+  console.log('Coding is cool'.search(/od/)); // 1
+  console.log('Coding is cool'.search(/odo/)); // -1
+					</code></pre>
+                    <p>replace()</p>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+  console.log('Coding is cool'.replace('Coding', 'JavaScript"));
+  // JavaScript is cool
+					</code></pre>
+                    <p>split()</p>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+  console.log('Hello world '.split(" "));// ['Hello', 'world!', '']
+					</code></pre>
+			</section>
+            </section>
+            <section>
+                <h2>Applications</h2>
+                <p>Regular Expressions are widely used in:</p>
+                <ul>
+                    <li>Text editors and IDEs</li>
+                    <li>Programming languages (e.g., JavaScript, Python)</li>
+                    <li>Web development (e.g., form validation, routing)</li>
+                    <li>Data processing and analysis</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Best Practices</h2>
+                <ul>
+                    <li>Start simple and gradually build complexity</li>
+                    <li>Test your expressions with various inputs</li>
+                    <li>Use online regex testers and debuggers</li>
+                    <li>Refer to documentation and cheat sheets</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Conclusion</h2>
+                <p>Regular Expressions are indispensable tools for text processing and manipulation. By understanding their syntax, common patterns, and best practices, you can leverage them effectively in various applications to search, match, and transform text data.</p>
+            </section>
+            <section>
+                <h2>Thank you for your attention</h2>
+            </section>
+        </div>
+    </div>
 
 		<script src="dist/reveal.js"></script>
 		<script src="plugin/notes/notes.js"></script>
